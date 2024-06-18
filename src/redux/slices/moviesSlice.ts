@@ -1,6 +1,6 @@
-import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
-import { getMovies} from '../../services/movies.services';
-import { IMovie } from '../../models/IMovie';
+import {createSlice, createAsyncThunk, PayloadAction} from '@reduxjs/toolkit';
+import {getMovies} from '../../services/movies.services';
+import {IMovie} from '../../models/IMovie';
 import {RootState} from "../store/store";
 
 
