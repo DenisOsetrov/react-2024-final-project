@@ -1,31 +1,52 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from "../../services/api.service";
+import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
+import { getMovies} from '../../services/movies.services';
+import { IMovie } from '../../models/IMovie';
+import {RootState} from "../store/store";
 
 
-export const getMovies = createAsyncThunk('movies/getMovies', async (page: number) => {
-    const response = await api.get(`/discover/movie?include_adult=false&include_video=false&language=en-US&page=${page}&sort_by=popularity.desc`);
-    return response.data.results;
-});
+interface MoviesState {
+    moviesList: IMovie[];
+    loading: boolean;
+    error: string | null;
+}
+
+const initialState: MoviesState = {
+    moviesList: [],
+    loading: false,
+    error: null,
+};
+
+export const fetchMovies = createAsyncThunk<IMovie[], number>(
+    'movies/fetchMovies',
+    async (page: number) => {
+        const response = await getMovies(page);
+        return response;
+    }
+);
 
 const moviesSlice = createSlice({
     name: 'movies',
-    initialState: {
-        moviesList: [],
-        loading: false,
-    },
+    initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(getMovies.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(getMovies.fulfilled, (state, action) => {
-            state.loading = false;
-            state.moviesList = action.payload;
-        });
-        builder.addCase(getMovies.rejected, (state) => {
-            state.loading = false;
-        });
+        builder
+            .addCase(fetchMovies.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchMovies.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
+                state.loading = false;
+                state.moviesList = action.payload;
+            })
+            .addCase(fetchMovies.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Failed to fetch movies';
+            });
     },
 });
 
-export default moviesSlice.reducer;
+export const selectMovies = (state: RootState) => state.movies.moviesList;
+
+
+const moviesReducer = moviesSlice.reducer;
+export default moviesReducer;

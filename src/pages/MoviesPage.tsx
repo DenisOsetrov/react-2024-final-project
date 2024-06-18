@@ -1,19 +1,22 @@
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import {getMovies} from "../redux/slices/moviesSlice";
+import { useDispatch, useSelector  } from 'react-redux';
+import {AppDispatch, RootState} from "../redux/store/store";
 import MoviesList from "../components/MoviesList/MoviesList";
-
+import {fetchMovies} from '../redux/slices/moviesSlice';
 
 const MoviesPage: React.FC = () => {
-    const dispatch = useDispatch();
+    const dispatch: AppDispatch = useDispatch();
+    const movies = useSelector((state: RootState) => state.movies.moviesList);
 
     useEffect(() => {
-        dispatch(getMovies(1));
+        dispatch(fetchMovies(20));
     }, [dispatch]);
 
     return (
         <div>
-            <MoviesList />
+            <h2>Movies Page</h2>
+            {/* Передаємо movies як властивість в MoviesList */}
+            <MoviesList movies={movies} />
         </div>
     );
 };
