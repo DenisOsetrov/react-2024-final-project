@@ -1,5 +1,5 @@
 import {createBrowserRouter} from "react-router-dom";
-import MoviesPage from "../pages/MoviesPage";
+import MoviesPage from "../pages/MoviesPage/MoviesPage";
 import MainLayout from "../layouts/MainLayout";
 import GenresPage from "../pages/GenresPage";
 import GenreDetailsPage from "../pages/GenreDetailsPage/GenreDetailsPage";

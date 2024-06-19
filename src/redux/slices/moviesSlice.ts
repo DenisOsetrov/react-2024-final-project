@@ -1,12 +1,15 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { IMovie } from '../../models/movies/IMovie';
 import { getMovies, getMovieById } from '../../services/movies.services';
-import { RootState } from "../store/store";
+import { RootState } from '../store/store';
+import {IMoviesResponse} from "../../models/movies/IMoviesResponse";
 
 interface MoviesState {
     moviesList: IMovie[];
     movieDetails: IMovie | null;
     currentPage: number;
+    totalPages: number;
+    totalMovies: number;
     loading: boolean;
     error: string | null;
 }
@@ -15,15 +18,16 @@ const initialState: MoviesState = {
     moviesList: [],
     movieDetails: null,
     currentPage: 1,
+    totalPages: 0,
+    totalMovies: 0,
     loading: false,
     error: null,
 };
 
-export const fetchMovies = createAsyncThunk<IMovie[], number>(
+export const fetchMovies = createAsyncThunk<IMoviesResponse, number>(
     'movies/fetchMovies',
     async (page: number) => {
-        const response = await getMovies(page);
-        return response.results; // Отримання результату списку фільмів
+        return await getMovies(page);
     }
 );
 
@@ -41,6 +45,8 @@ const moviesSlice = createSlice({
         resetMovies: (state) => {
             state.moviesList = [];
             state.currentPage = 1;
+            state.totalPages = 0;
+            state.totalMovies = 0;
         },
     },
     extraReducers: (builder) => {
@@ -49,14 +55,16 @@ const moviesSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchMovies.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
+            .addCase(fetchMovies.fulfilled, (state, action: PayloadAction<IMoviesResponse>) => {
                 state.loading = false;
                 if (state.currentPage === 1) {
-                    state.moviesList = action.payload;
+                    state.moviesList = action.payload.results;
                 } else {
-                    state.moviesList = [...state.moviesList, ...action.payload];
+                    state.moviesList = [...state.moviesList, ...action.payload.results];
                 }
-                state.currentPage += 1;
+                state.totalPages = action.payload.total_pages;
+                state.totalMovies = action.payload.total_results;
+                state.currentPage = action.payload.page;
             })
             .addCase(fetchMovies.rejected, (state, action) => {
                 state.loading = false;
@@ -80,6 +88,8 @@ const moviesSlice = createSlice({
 export const { resetMovies } = moviesSlice.actions;
 export const selectMovies = (state: RootState) => state.movies.moviesList;
 export const selectMovieDetails = (state: RootState) => state.movies.movieDetails;
+export const selectTotalMovies = (state: RootState) => state.movies.totalMovies;
+export const selectTotalPages = (state: RootState) => state.movies.totalPages;
 
 const moviesReducer = moviesSlice.reducer;
 export default moviesReducer;
