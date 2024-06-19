@@ -1,6 +1,9 @@
 import {createBrowserRouter} from "react-router-dom";
 import MoviesPage from "../pages/MoviesPage";
 import MainLayout from "../layouts/MainLayout";
+import GenresPage from "../pages/GenresPage";
+import GenreDetailsPage from "../pages/GenreDetailsPage/GenreDetailsPage";
+import MovieDetailsPage from "../pages/MovieDetailsPage/MovieDetailsPage";
 
 const router = createBrowserRouter([
     {
@@ -11,11 +14,19 @@ const router = createBrowserRouter([
                 path: '/',
                 element: <MoviesPage />,
             },
-            // Add more routes here as needed
-            // {
-            //   path: '/genres',
-            //   element: <GenresPage />,
-            // },
+            {
+              path: '/genres',
+              element: <GenresPage />,
+            },
+            {
+                path: '/genre/:id',
+                // eslint-disable-next-line react/jsx-no-undef
+                element: <GenreDetailsPage />,
+            },
+            {
+                path: '/movie/:id',
+                element: <MovieDetailsPage />,
+            },
         ],
     },
 ]);

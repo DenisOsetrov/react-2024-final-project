@@ -1,18 +1,20 @@
-import React from 'react';
+import React, {FC} from 'react';
+import {IMovie} from "../../models/movies/IMovie";
+import {Link} from "react-router-dom";
 
-interface Movie {
-    id: number;
-    title: string;
-    overview: string;
-    poster_path: string;
+interface IProps {
+    movie: IMovie;
 }
 
-const MoviesListCard: React.FC<{ movie: Movie }> = ({ movie }) => (
-    <div>
-        <h2>{movie.title}</h2>
-        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} alt={movie.title} />
-        <p>{movie.overview}</p>
-    </div>
-);
+const MoviesListCard: FC<IProps> = ({ movie }) => {
+    return (
+        <div>
+            <Link to={`/movie/${movie.id}`}>
+                <img src={`https://image.tmdb.org/t/p/w200${movie.poster_path}`} alt={movie.title} />
+                <h3>{movie.title}</h3>
+            </Link>
+        </div>
+    );
+};
 
 export default MoviesListCard;

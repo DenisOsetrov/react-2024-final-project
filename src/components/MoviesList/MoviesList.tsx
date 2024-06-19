@@ -1,8 +1,6 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import {RootState} from "../../redux/store/store";
 import MoviesListCard from "../MoviesListCard/MoviesListCard";
-import {IMovie} from "../../models/IMovie";
+import {IMovie} from "../../models/movies/IMovie";
 
 
 interface Props {
