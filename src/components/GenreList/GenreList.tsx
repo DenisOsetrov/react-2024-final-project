@@ -9,7 +9,6 @@ interface IProps {
 const GenreList: React.FC<IProps> = ({ genres }) => {
     return (
         <div>
-            <h2>Genres Page</h2>
             {genres.map((genre) => (
                 <div key={genre.id}>
                     <Link to={`/genre/${genre.id}`}>{genre.name}</Link>

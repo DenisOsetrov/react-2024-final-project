@@ -43,9 +43,9 @@ const moviesSlice = createSlice({
     initialState,
     reducers: {
         resetMovies: (state) => {
-            state.moviesList = []; // якщо відключитити, то при пагнації залишаєшся біля кнопок.
+            state.moviesList = [];
             state.currentPage = 1;
-            state.totalPages = 0;
+            state.totalPages = 500; // Залишаємо 500 сторінок
             state.totalMovies = 0;
         },
     },
@@ -62,7 +62,7 @@ const moviesSlice = createSlice({
                 } else {
                     state.moviesList = [...state.moviesList, ...action.payload.results];
                 }
-                state.totalPages = Math.min(action.payload.total_pages, 500); // Обмежуємо totalPages до 500
+                state.totalPages = Math.min(action.payload.total_pages, 500);
                 state.totalMovies = action.payload.total_results;
                 state.currentPage = action.payload.page;
             })
