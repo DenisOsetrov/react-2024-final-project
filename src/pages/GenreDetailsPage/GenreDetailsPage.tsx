@@ -30,7 +30,7 @@ const GenreDetailsPage: React.FC = () => {
         // Виконання скидання стану і прокрутки на початок при зміні id жанру
         dispatch(resetMovies());
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, [id]);
+    }, [id, dispatch]);
 
     if (!movies.length) {
         return <div>Loading...</div>;
