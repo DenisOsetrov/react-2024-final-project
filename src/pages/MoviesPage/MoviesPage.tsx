@@ -4,7 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import MoviesList from '../../components/MoviesList/MoviesList';
 import { fetchMovies, resetMovies } from '../../redux/slices/moviesSlice';
-import { fetchGenres } from '../../redux/slices/genresSlice'; // додано
+import { fetchGenres } from '../../redux/slices/genresSlice';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import './MoviesPage.css';

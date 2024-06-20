@@ -1,14 +1,15 @@
-import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getGenres, getMoviesByGenre } from '../../services/genres.services';
 import { IGenre } from '../../models/genres/IGenre';
 import { IMovie } from '../../models/movies/IMovie';
 import { RootState } from '../store/store';
-import { getGenres, getMoviesByGenre } from '../../services/genres.services';
 
 interface GenresState {
     genresList: IGenre[];
     genreMovies: IMovie[];
     loading: boolean;
     error: string | null;
+    totalPages: number;  // Загальна кількість сторінок
 }
 
 const initialState: GenresState = {
@@ -16,13 +17,14 @@ const initialState: GenresState = {
     genreMovies: [],
     loading: false,
     error: null,
+    totalPages: 0,  // Ініціалізація загальної кількості сторінок
 };
 
 export const fetchGenres = createAsyncThunk<IGenre[]>(
     'genres/fetchGenres',
     async () => {
         const response = await getGenres();
-        return response.genres;  // Повертайте масив жанрів безпосередньо
+        return response.genres;
     }
 );
 
@@ -31,18 +33,25 @@ interface FetchMoviesByGenreParams {
     page: number;
 }
 
-export const fetchMoviesByGenre = createAsyncThunk<IMovie[], FetchMoviesByGenreParams>(
+export const fetchMoviesByGenre = createAsyncThunk(
     'genres/fetchMoviesByGenre',
-    async ({ genreId, page }) => {
+    async ({ genreId, page }: FetchMoviesByGenreParams) => {
         const response = await getMoviesByGenre(genreId, page);
-        return response.results;  // Повертайте масив фільмів безпосередньо
+        return {
+            results: response.results,
+            totalPages: Math.min(response.total_pages, 500), // Обмеження до 500 сторінок
+        };
     }
 );
 
 const genresSlice = createSlice({
     name: 'genres',
     initialState,
-    reducers: {},
+    reducers: {
+        resetMovies: (state) => {
+            state.genreMovies = [];
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchGenres.pending, (state) => {
@@ -61,9 +70,10 @@ const genresSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(fetchMoviesByGenre.fulfilled, (state, action: PayloadAction<IMovie[]>) => {
+            .addCase(fetchMoviesByGenre.fulfilled, (state, action: PayloadAction<{ results: IMovie[], totalPages: number }>) => {
                 state.loading = false;
-                state.genreMovies = action.payload;
+                state.genreMovies = action.payload.results;
+                state.totalPages = action.payload.totalPages;
             })
             .addCase(fetchMoviesByGenre.rejected, (state, action) => {
                 state.loading = false;
@@ -72,8 +82,11 @@ const genresSlice = createSlice({
     },
 });
 
+export const { resetMovies } = genresSlice.actions;
+
 export const selectGenres = (state: RootState) => state.genres.genresList;
 export const selectGenreMovies = (state: RootState) => state.genres.genreMovies;
+export const selectTotalPages = (state: RootState) => state.genres.totalPages;
 
 const genresReducer = genresSlice.reducer;
 export default genresReducer;

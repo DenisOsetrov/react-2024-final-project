@@ -88,5 +88,6 @@ const moviesSlice = createSlice({
 export const { resetMovies } = moviesSlice.actions;
 export const selectMovieDetails = (state: RootState) => state.movies.movieDetails;
 
+
 const moviesReducer = moviesSlice.reducer;
 export default moviesReducer;
