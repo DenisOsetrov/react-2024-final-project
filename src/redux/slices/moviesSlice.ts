@@ -18,7 +18,7 @@ const initialState: MoviesState = {
     moviesList: [],
     movieDetails: null,
     currentPage: 1,
-    totalPages: 0,
+    totalPages: 500,
     totalMovies: 0,
     loading: false,
     error: null,
@@ -43,7 +43,7 @@ const moviesSlice = createSlice({
     initialState,
     reducers: {
         resetMovies: (state) => {
-            state.moviesList = [];
+            state.moviesList = []; // якщо відключитити, то при пагнації залишаєшся біля кнопок.
             state.currentPage = 1;
             state.totalPages = 0;
             state.totalMovies = 0;
@@ -62,7 +62,7 @@ const moviesSlice = createSlice({
                 } else {
                     state.moviesList = [...state.moviesList, ...action.payload.results];
                 }
-                state.totalPages = action.payload.total_pages;
+                state.totalPages = Math.min(action.payload.total_pages, 500); // Обмежуємо totalPages до 500
                 state.totalMovies = action.payload.total_results;
                 state.currentPage = action.payload.page;
             })
@@ -86,10 +86,7 @@ const moviesSlice = createSlice({
 });
 
 export const { resetMovies } = moviesSlice.actions;
-export const selectMovies = (state: RootState) => state.movies.moviesList;
 export const selectMovieDetails = (state: RootState) => state.movies.movieDetails;
-export const selectTotalMovies = (state: RootState) => state.movies.totalMovies;
-export const selectTotalPages = (state: RootState) => state.movies.totalPages;
 
 const moviesReducer = moviesSlice.reducer;
 export default moviesReducer;

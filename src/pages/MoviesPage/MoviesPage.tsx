@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import MoviesList from '../../components/MoviesList/MoviesList';
@@ -11,24 +11,25 @@ const MoviesPage: React.FC = () => {
     const [page, setPage] = useState(1);
     const dispatch: AppDispatch = useDispatch();
     const movies = useSelector((state: RootState) => state.movies.moviesList);
-    const totalMovies = useSelector((state: RootState) => state.movies.totalMovies);
-    const moviesPerPage = 20; // Кількість фільмів на сторінці, можна змінити відповідно до API
-    const totalPages = Math.min(Math.ceil(totalMovies / moviesPerPage), 500); // Обмежуємо totalPages до 500
+    const totalPages = useSelector((state: RootState) => state.movies.totalPages);
+
+    const fetchMoviesFromPage = useCallback(
+        async (pageNumber: number) => {
+            try {
+                await dispatch(fetchMovies(pageNumber));
+            } catch (error: any) {
+                console.error('Error fetching movies:', error.message);
+            }
+        },
+        [dispatch]
+    );
 
     useEffect(() => {
         dispatch(resetMovies());
         fetchMoviesFromPage(page);
-    }, [dispatch, page]);
+    }, [dispatch, fetchMoviesFromPage, page]);
 
-    const fetchMoviesFromPage = async (pageNumber: number) => {
-        try {
-            await dispatch(fetchMovies(pageNumber));
-        } catch (error:any) {
-            console.error('Error fetching movies:', error.message);
-        }
-    };
-
-    const handlePageChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handlePageChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         if (value > 0 && value <= totalPages) { // Перевіряємо, що сторінка в межах доступних значень
             setPage(value);
         } else {
