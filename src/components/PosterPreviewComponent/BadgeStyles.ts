@@ -18,6 +18,18 @@ const grey = {
     900: '#1C2025',
 };
 
+const smallBadgeStyles = `
+    & .${badgeClasses.badge} {
+        min-width: 34px;
+        height: 22px;
+        padding: 0 8px;
+        font-size: 14px;
+        line-height: 22px;
+        border-radius: 12px;
+        background: ${grey[700]};
+    }
+`;
+
 export const Badge = styled(BaseBadge)(
     ({ theme }) => `
     box-sizing: border-box;
@@ -36,20 +48,24 @@ export const Badge = styled(BaseBadge)(
         position: absolute;
         top: 10px;
         right: 10px;
-        min-width: 68px;   
-        height: 44px;     
-        padding: 0 16px;  
+        min-width: 68px;
+        height: 44px;
+        padding: 0 16px;
         color: #fff;
         font-weight: 600;
-        font-size: 28px;  
+        font-size: 28px;
         line-height: 44px;
         white-space: nowrap;
         text-align: center;
-        border-radius: 24px; 
+        border-radius: 24px;
         background: ${blue[500]};
         box-shadow: 0px 8px 16px ${theme.palette.mode === 'dark' ? grey[900] : grey[300]};
         transform: translate(50%, -50%);
         transform-origin: 100% 0;
+    }
+
+    &.small {
+        ${smallBadgeStyles}
     }
     `
 );

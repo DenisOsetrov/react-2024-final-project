@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import { fetchMovieById, selectMovieDetails } from '../../redux/slices/moviesSlice';
@@ -8,8 +8,10 @@ import GenresListComponent from '../../components/GenresListComponent/GenresList
 import StarRating from '../../components/StarRating/StarRating';
 import './MovieDetailsPage.css';
 
+
 const MovieDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
+    const navigate = useNavigate();
     const dispatch: AppDispatch = useDispatch();
     const movie = useSelector((state: RootState) => selectMovieDetails(state));
 
@@ -28,8 +30,10 @@ const MovieDetailsPage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
+
     return (
-        <div className={"movie-card"}>
+        <div className="movie-card">
+            <button onClick={() => navigate(-1)}>Back</button>
             <h2>{movie.title}</h2>
             <PosterPreviewComponent posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} />
             <p>{movie.overview}</p>

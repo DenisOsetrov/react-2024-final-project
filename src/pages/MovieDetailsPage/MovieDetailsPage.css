@@ -20,3 +20,20 @@
 .movie-card p {
     margin: 5px 0;
 }
+
+
+ /*button*/
+
+.movie-card button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.movie-card button:hover {
+    background-color: #0056b3;
+}

@@ -38,7 +38,7 @@ const GenreDetailsPage: React.FC = () => {
 
     return (
         <div>
-            <h2>Movies</h2>
+            <h2>Films by genre</h2>
             <MoviesList movies={movies} />
             <Stack spacing={2} className="pagination">
                 <Pagination

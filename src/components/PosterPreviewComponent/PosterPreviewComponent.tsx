@@ -1,6 +1,5 @@
 import React from 'react';
-import {Badge} from "./BadgeStyles";
-
+import { Badge } from "./BadgeStyles";
 
 interface PosterPreviewProps {
     posterPath: string;
@@ -9,7 +8,7 @@ interface PosterPreviewProps {
 }
 
 const PosterPreviewComponent: React.FC<PosterPreviewProps> = ({ posterPath, title, releaseDate }) => {
-    // Видобування року з дати випуску
+
     const releaseYear = new Date(releaseDate).getFullYear();
 
     return (
