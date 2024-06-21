@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
-import userAvatar from './user.png'; // Імпортуємо зображення
+import userAvatar from './userAvatar.png';
+
 
 const Header: React.FC = () => (
     <header>

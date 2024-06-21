@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {RootState} from "../../redux/store/store";
+import {selectIsDarkTheme, toggleTheme} from "../../redux/slices/themeSlice";
+// import './ThemeSwitcher.css';
+import './ThemeSwitcher.css'
 
 const ThemeSwitcher: React.FC = () => {
-    const [darkTheme, setDarkTheme] = useState(false);
+    const dispatch = useDispatch();
+    const isDarkTheme = useSelector((state: RootState) => selectIsDarkTheme(state));
 
-    const toggleTheme = () => {
-        setDarkTheme((prevTheme) => !prevTheme);
-        document.body.className = darkTheme ? 'dark-theme' : 'light-theme';
+    const handleToggle = () => {
+        dispatch(toggleTheme());
     };
 
-    return <button onClick={toggleTheme}>{darkTheme ? 'Light Mode' : 'Dark Mode'}</button>;
+    return (
+        <label className="switch">
+            <input type="checkbox" checked={isDarkTheme} onChange={handleToggle} id="slider" />
+            <span className="slider round"></span>
+        </label>
+    );
 };
 
 export default ThemeSwitcher;
