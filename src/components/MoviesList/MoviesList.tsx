@@ -1,7 +1,7 @@
 import React from 'react';
 import MoviesListCard from "../MoviesListCard/MoviesListCard";
 import {IMovie} from "../../models/movies/IMovie";
-
+import './MoviesList.css';
 
 interface Props {
     movies: IMovie[];
@@ -14,7 +14,7 @@ const MoviesList: React.FC<Props> = ({ movies }) => {
     }
 
     return (
-        <div>
+        <div className="movies-container">
             {movies.map((movie: IMovie) => (
                 <MoviesListCard key={movie.id} movie={movie} />
             ))}
