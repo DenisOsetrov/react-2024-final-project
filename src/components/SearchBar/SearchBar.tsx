@@ -1,26 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { AppDispatch } from '../../redux/store/store';
-import { fetchMoviesByQuery } from '../../redux/slices/moviesSlice';
+import { fetchMoviesByQuery } from '../../redux/slices/searchSlice';
 import './SearchBar.css';
 
-interface SearchBarProps {
-    onSearchComplete: () => void;
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ onSearchComplete }) => {
+const SearchBar: React.FC = () => {
     const [query, setQuery] = useState('');
     const dispatch: AppDispatch = useDispatch();
+    const navigate = useNavigate();
 
     const handleSearch = async () => {
         if (query.trim()) {
             await dispatch(fetchMoviesByQuery(query));
-            onSearchComplete();
+            navigate('/search'); // Перенаправлення на сторінку результатів пошуку
         }
     };
 
-    // функція зчитування даних з інпуту при написканні Enter
-    const handleKeyDown = (e : React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
             handleSearch();
         }
@@ -33,7 +30,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchComplete }) => {
                 placeholder="Search movies..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                onKeyDown={handleKeyDown} // обробник події onKeyDown
+                onKeyDown={handleKeyDown}
             />
             <button onClick={handleSearch}>Find</button>
         </div>

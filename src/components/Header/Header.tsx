@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import ThemeSwitcher from "../ThemeSwitcher/ThemeSwitcher";
+import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import userAvatar from './userAvatar.png';
 import SearchBar from '../SearchBar/SearchBar';
-import './Header.css'; // Ensure this CSS file exists and is imported
+import './Header.css';
 
 const Header: React.FC = () => {
     const [showSearch, setShowSearch] = useState(false);
     const navigate = useNavigate();
 
     const toggleSearchBar = () => {
-        setShowSearch(prevState => !prevState);
+        setShowSearch((prevState) => !prevState);
     };
 
     const handleGenresClick = () => {
@@ -35,25 +35,7 @@ const Header: React.FC = () => {
                         onMouseEnter={(e) => e.currentTarget.classList.add('show')}
                         onMouseLeave={(e) => e.currentTarget.classList.remove('show')}
                     >
-                        <Link to="/genre/28">Action</Link>
-                        <Link to="/genre/12">Adventure</Link>
-                        <Link to="/genre/16">Animation</Link>
-                        <Link to="/genre/35">Comedy</Link>
-                        <Link to="/genre/80">Crime</Link>
-                        <Link to="/genre/99">Documentary</Link>
-                        <Link to="/genre/18">Drama</Link>
-                        <Link to="/genre/10751">Family</Link>
-                        <Link to="/genre/14">Fantasy</Link>
-                        <Link to="/genre/36">History</Link>
-                        <Link to="/genre/27">Horror</Link>
-                        <Link to="/genre/10402">Music</Link>
-                        <Link to="/genre/9648">Mystery</Link>
-                        <Link to="/genre/10749">Romance</Link>
-                        <Link to="/genre/878">Science Fiction</Link>
-                        <Link to="/genre/10770">TV Movie</Link>
-                        <Link to="/genre/53">Thriller</Link>
-                        <Link to="/genre/10752">War</Link>
-                        <Link to="/genre/37">Western</Link>
+                        {/* Посилання на жанри */}
                     </div>
                 </div>
                 <span onClick={toggleSearchBar} style={{ cursor: 'pointer' }}>
@@ -62,7 +44,7 @@ const Header: React.FC = () => {
                 <ThemeSwitcher />
                 <img src={userAvatar} alt="User Avatar" style={{ width: '30px', borderRadius: '50%' }} />
             </nav>
-            {showSearch && <SearchBar onSearchComplete={() => setShowSearch(false)} />}
+            {showSearch && <SearchBar />}
         </header>
     );
 };
