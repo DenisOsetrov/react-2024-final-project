@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { IMovie } from '../../models/movies/IMovie';
-import { getMovies, getMovieById } from '../../services/movies.services';
+import { getMovies, getMovieById, searchMovies } from '../../services/movies.services';
 import { RootState } from '../store/store';
-import {IMoviesResponse} from "../../models/movies/IMoviesResponse";
+import { IMoviesResponse } from "../../models/movies/IMoviesResponse";
 
 interface MoviesState {
     moviesList: IMovie[];
@@ -35,6 +35,13 @@ export const fetchMovieById = createAsyncThunk<IMovie, number>(
     'movies/fetchMovieById',
     async (id: number) => {
         return await getMovieById(id);
+    }
+);
+
+export const fetchMoviesByQuery = createAsyncThunk<IMoviesResponse, string>(
+    'movies/fetchMoviesByQuery',
+    async (query: string) => {
+        return await searchMovies(query);
     }
 );
 
@@ -81,13 +88,30 @@ const moviesSlice = createSlice({
             .addCase(fetchMovieById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || 'Failed to fetch movie details';
+            })
+            .addCase(fetchMoviesByQuery.pending, (state) => {
+                state.loading = true;
+                state.error = null;
+            })
+            .addCase(fetchMoviesByQuery.fulfilled, (state, action: PayloadAction<IMoviesResponse>) => {
+                state.loading = false;
+                state.moviesList = action.payload.results;
+                state.totalPages = Math.min(action.payload.total_pages, 500);
+                state.totalMovies = action.payload.total_results;
+                state.currentPage = 1; // Знайдені результати показують першу сторінку
+            })
+            .addCase(fetchMoviesByQuery.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || 'Failed to search movies';
             });
     },
 });
 
 export const { resetMovies } = moviesSlice.actions;
 export const selectMovieDetails = (state: RootState) => state.movies.movieDetails;
-
+export const selectMoviesList = (state: RootState) => state.movies.moviesList;
+export const selectLoading = (state: RootState) => state.movies.loading;
+export const selectError = (state: RootState) => state.movies.error;
 
 const moviesReducer = moviesSlice.reducer;
 export default moviesReducer;

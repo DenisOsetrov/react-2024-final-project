@@ -4,6 +4,11 @@ body {
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family: Arial, sans-serif;
+
+    background: var(--color-secondary);
+    color: var(--font-color);
+    transition: background 0.3s, color 0.3s;
 }
 
 .theme-light {
@@ -20,8 +25,39 @@ body {
     --font-color: #ffffff;
 }
 
-body {
-    background: var(--color-secondary);
-    color: var(--font-color);
-    transition: background 0.3s, color 0.3s;
+
+
+header {
+    background-color: #2196f3;
+    padding: 10px;
+    color: white;
 }
+
+header nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+header nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+header nav span {
+    color: white;
+    cursor: pointer;
+}
+
+.movies-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.search-bar {
+    background-color: #f1f1f1;
+    padding: 10px;
+}
+

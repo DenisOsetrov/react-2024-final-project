@@ -6,6 +6,7 @@ import { fetchMovieById, selectMovieDetails } from '../../redux/slices/moviesSli
 import PosterPreviewComponent from '../../components/PosterPreviewComponent/PosterPreviewComponent';
 import GenresListComponent from '../../components/GenresListComponent/GenresListComponent';
 import StarRating from '../../components/StarRating/StarRating';
+import './MovieDetailsPage.css';
 
 const MovieDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -28,7 +29,7 @@ const MovieDetailsPage: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className={"movie-card"}>
             <h2>{movie.title}</h2>
             <PosterPreviewComponent posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} />
             <p>{movie.overview}</p>

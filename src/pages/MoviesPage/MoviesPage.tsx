@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import MoviesList from '../../components/MoviesList/MoviesList';
-import { fetchMovies, resetMovies } from '../../redux/slices/moviesSlice';
+import { fetchMovies, resetMovies, selectMoviesList, selectLoading, selectError } from '../../redux/slices/moviesSlice';
 import { fetchGenres } from '../../redux/slices/genresSlice';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
@@ -14,7 +14,9 @@ const MoviesPage: React.FC = () => {
     const navigate = useNavigate();
     const page = pageNumber ? parseInt(pageNumber, 10) : 1;
     const dispatch: AppDispatch = useDispatch();
-    const movies = useSelector((state: RootState) => state.movies.moviesList);
+    const movies = useSelector(selectMoviesList);
+    const loading = useSelector(selectLoading);
+    const error = useSelector(selectError);
     const totalPages = useSelector((state: RootState) => state.movies.totalPages);
 
     const fetchMoviesFromPage = useCallback(
@@ -29,7 +31,7 @@ const MoviesPage: React.FC = () => {
     );
 
     useEffect(() => {
-        dispatch(fetchGenres()); // додано
+        dispatch(fetchGenres());
         dispatch(resetMovies());
         fetchMoviesFromPage(page);
     }, [dispatch, fetchMoviesFromPage, page]);
@@ -37,11 +39,13 @@ const MoviesPage: React.FC = () => {
     return (
         <div>
             <h2>Movies Page</h2>
+            {loading && <p>Loading...</p>}
+            {error && <p>Error: {error}</p>}
             <Stack spacing={2} className="pagination">
                 <Pagination
                     count={totalPages}
                     page={page}
-                    onChange={(_event, value) => navigate(`/page/${value}`)} // оновлення
+                    onChange={(_event, value) => navigate(`/page/${value}`)}
                     shape="rounded"
                 />
             </Stack>
@@ -50,7 +54,7 @@ const MoviesPage: React.FC = () => {
                 <Pagination
                     count={totalPages}
                     page={page}
-                    onChange={(_event, value) => navigate(`/page/${value}`)} // оновлення
+                    onChange={(_event, value) => navigate(`/page/${value}`)}
                     shape="rounded"
                 />
             </Stack>

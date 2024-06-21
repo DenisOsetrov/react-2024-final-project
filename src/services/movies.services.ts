@@ -36,3 +36,20 @@ export const getMovieById = async (id: number): Promise<IMovie> => {
     });
     return response.data;
 };
+
+export const searchMovies = async (query: string): Promise<IMoviesResponse> => {
+    try {
+        const response = await api.get<IMoviesResponse>('/search/movie', {
+            params: {
+                query,
+                language: 'en-US',
+            },
+        });
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            throw new Error('Failed to search movies. Please try again later.');
+        }
+        throw error;
+    }
+};
