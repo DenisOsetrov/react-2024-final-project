@@ -11,11 +11,7 @@ const SearchResults: React.FC = () => {
             <h2>Search Results</h2>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
-            {searchResults.length > 0 ? (
-                <MoviesList movies={searchResults} />
-            ) : (
-                <p>No movies found.</p>
-            )}
+            <MoviesList movies={searchResults} />
         </div>
     );
 };
