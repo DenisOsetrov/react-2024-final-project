@@ -19,6 +19,13 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchComplete }) => {
         }
     };
 
+    // функція зчитування даних з інпуту при написканні Enter
+    const handleKeyDown = (e : React.KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === 'Enter') {
+            handleSearch();
+        }
+    };
+
     return (
         <div className="search-bar">
             <input
@@ -26,6 +33,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchComplete }) => {
                 placeholder="Search movies..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                onKeyDown={handleKeyDown} // Додайте обробник події onKeyDown
             />
             <button onClick={handleSearch}>Find</button>
         </div>
