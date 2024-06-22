@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import userAvatar from './userAvatar.png';
 import SearchBar from '../SearchBar/SearchBar';
@@ -8,6 +8,13 @@ import './Header.css';
 const Header: React.FC = () => {
     const [showSearch, setShowSearch] = useState(false);
     const navigate = useNavigate();
+
+    const location = useLocation(); // Отримання об'єкту location
+
+    useEffect(() => {
+        // Приховати пошукову панель при зміні маршруту
+        setShowSearch(false);
+    }, [location]);
 
     const toggleSearchBar = () => {
         setShowSearch(prevState => !prevState);
@@ -63,7 +70,7 @@ const Header: React.FC = () => {
                 <ThemeSwitcher />
                 <img src={userAvatar} alt="User Avatar" style={{ width: '30px', borderRadius: '50%' }} />
             </nav>
-            {showSearch && <SearchBar onSearchComplete={() => setShowSearch(false)} />}
+            {showSearch && <SearchBar/>}
         </header>
     );
 };

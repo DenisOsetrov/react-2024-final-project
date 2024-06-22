@@ -5,11 +5,7 @@ import { AppDispatch } from '../../redux/store/store';
 import { fetchMoviesByQuery } from '../../redux/slices/searchSlice';
 import './SearchBar.css';
 
-interface SearchBarProps {
-    onSearchComplete: () => void;
-}
-
-const SearchBar: React.FC<SearchBarProps> = ({ onSearchComplete }) => {
+const SearchBar: React.FC = () => {
     const [query, setQuery] = useState('');
     const dispatch: AppDispatch = useDispatch();
     const navigate = useNavigate();
@@ -21,9 +17,10 @@ const SearchBar: React.FC<SearchBarProps> = ({ onSearchComplete }) => {
         }
     };
 
-    const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const handleKeyDown = async (e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            handleSearch();
+            e.preventDefault(); // Попередити стандартну поведінку Enter у формі
+            await handleSearch(); // Очікувати виконання handleSearch
         }
     };
 
