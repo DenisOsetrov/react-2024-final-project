@@ -7,7 +7,8 @@ import { fetchMovies, resetMovies, selectMoviesList, selectLoading, selectError 
 import { fetchGenres } from '../../redux/slices/genresSlice';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import './MoviesPage.css';
+import '../../styles/pagination.css';
+import '../../styles/moviesGenresPageName.css';
 
 const MoviesPage: React.FC = () => {
     const { pageNumber } = useParams<{ pageNumber: string }>();
@@ -38,7 +39,7 @@ const MoviesPage: React.FC = () => {
 
     return (
         <div>
-            <h2>Movies Page</h2>
+            <h2 className="page-header">Movies Page</h2>
             {loading && <p>Loading...</p>}
             {error && <p>Error: {error}</p>}
             <Stack spacing={2} className="pagination">

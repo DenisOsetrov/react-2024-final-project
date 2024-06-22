@@ -6,6 +6,8 @@ import { fetchMoviesByGenre, selectGenreMovies, selectTotalPages, resetMovies } 
 import MoviesList from '../../components/MoviesList/MoviesList';
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
+import '../../styles/pagination.css';
+import '../../styles/moviesGenresPageName.css';
 
 const GenreDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -38,7 +40,7 @@ const GenreDetailsPage: React.FC = () => {
 
     return (
         <div>
-            <h2>Films by genre</h2>
+            <h2 className="page-header">Films by genre</h2>
             <MoviesList movies={movies} />
             <Stack spacing={2} className="pagination">
                 <Pagination

@@ -3,6 +3,7 @@ import {AppDispatch, RootState} from "../redux/store/store";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchGenres, selectGenres} from "../redux/slices/genresSlice";
 import GenreList from "../components/GenreList/GenreList";
+import '../../src/styles/moviesGenresPageName.css';
 
 const GenresPage = () => {
 
@@ -15,7 +16,7 @@ const GenresPage = () => {
 
     return (
         <div>
-            <h2>Genres Page</h2>
+            <h2 className="page-header">Genres Page</h2>
             <GenreList genres={genres} />
         </div>
     );

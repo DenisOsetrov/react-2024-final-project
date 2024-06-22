@@ -1,0 +1,13 @@
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.theme-light .pagination .MuiPaginationItem-root {
+    color: var(--color-primary);
+}
+
+.theme-dark .pagination .MuiPaginationItem-root {
+    color: var(--color-primary);
+}
