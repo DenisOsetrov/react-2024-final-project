@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Link, useLocation, useNavigate} from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import ThemeSwitcher from '../ThemeSwitcher/ThemeSwitcher';
 import userAvatar from './userAvatar.png';
 import SearchBar from '../SearchBar/SearchBar';
@@ -8,11 +8,9 @@ import './Header.css';
 const Header: React.FC = () => {
     const [showSearch, setShowSearch] = useState(false);
     const navigate = useNavigate();
-
-    const location = useLocation(); // Отримання об'єкту location
+    const location = useLocation();
 
     useEffect(() => {
-        // Приховати пошукову панель при зміні маршруту
         setShowSearch(false);
     }, [location]);
 
@@ -42,7 +40,6 @@ const Header: React.FC = () => {
                         onMouseEnter={(e) => e.currentTarget.classList.add('show')}
                         onMouseLeave={(e) => e.currentTarget.classList.remove('show')}
                     >
-                        {/* Залишаємо посилання на жанри без змін */}
                         <Link to="/genre/28">Action</Link>
                         <Link to="/genre/12">Adventure</Link>
                         <Link to="/genre/16">Animation</Link>
@@ -64,14 +61,13 @@ const Header: React.FC = () => {
                         <Link to="/genre/37">Western</Link>
                     </div>
                 </div>
-
-                <span onClick={toggleSearchBar} style={{cursor: 'pointer'}}>
+                <span onClick={toggleSearchBar}>
                     Search <i className="fas fa-search"></i>
                 </span>
-                <ThemeSwitcher/>
-                <img src={userAvatar} alt="User Avatar" style={{width: '30px', borderRadius: '50%'}}/>
+                <ThemeSwitcher />
+                <img src={userAvatar} alt="User Avatar" />
             </nav>
-            {showSearch && <SearchBar/>}
+            {showSearch && <SearchBar />}
         </header>
     );
 };

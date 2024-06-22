@@ -5,7 +5,6 @@ body {
     height: 100%;
     width: 100%;
     font-family: Arial, sans-serif;
-
     background: var(--color-secondary);
     color: var(--font-color);
     transition: background 0.3s, color 0.3s;
@@ -16,6 +15,8 @@ body {
     --color-secondary: #fbfbfe;
     --color-accent: #fd6f53;
     --font-color: #000000;
+    --header-background: #a170b4;
+    --header-color: #ffffff;
 }
 
 .theme-dark {
@@ -23,31 +24,8 @@ body {
     --color-secondary: #2a2c2d;
     --color-accent: #12cdea;
     --font-color: #ffffff;
-}
-
-
-
-header {
-    background-color: #a170b4;
-    padding: 10px;
-    color: white;
-}
-
-header nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-
-header nav a {
-    color: white;
-    margin: 0 10px;
-    text-decoration: none;
-}
-
-header nav span {
-    color: white;
-    cursor: pointer;
+    --header-background: #3c3f41;
+    --header-color: #ffffff;
 }
 
 .movies-list {
@@ -55,9 +33,3 @@ header nav span {
     flex-wrap: wrap;
     justify-content: center;
 }
-
-.search-bar {
-    background-color: #f1f1f1;
-    padding: 10px;
-}
-

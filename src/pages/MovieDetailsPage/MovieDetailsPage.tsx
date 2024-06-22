@@ -1,15 +1,14 @@
-import React, {useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppDispatch, RootState} from '../../redux/store/store';
-import {fetchMovieById, selectMovieDetails} from '../../redux/slices/moviesSlice';
+import React, { useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch, RootState } from '../../redux/store/store';
+import { fetchMovieById, selectMovieDetails } from '../../redux/slices/moviesSlice';
 import PosterPreviewComponent from '../../components/PosterPreviewComponent/PosterPreviewComponent';
 import StarRating from '../../components/StarRating/StarRating';
 import './MovieDetailsPage.css';
 
-
 const MovieDetailsPage: React.FC = () => {
-    const {id} = useParams<{ id: string }>();
+    const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
     const dispatch: AppDispatch = useDispatch();
     const movie = useSelector((state: RootState) => selectMovieDetails(state));
@@ -21,7 +20,6 @@ const MovieDetailsPage: React.FC = () => {
     }, [dispatch, id]);
 
     useEffect(() => {
-        // Scroll to the top of the page when movie details load
         window.scrollTo(0, 0);
     }, [movie]);
 
@@ -29,18 +27,16 @@ const MovieDetailsPage: React.FC = () => {
         return <div>Loading...</div>;
     }
 
-
     return (
         <div className="movie-card">
             <button onClick={() => navigate(-1)}>Back</button>
             <h2>{movie.title}</h2>
             <div className="movie-details">
-                <PosterPreviewComponent posterPath={movie.poster_path} title={movie.title}
-                                        releaseDate={movie.release_date}/>
+                <PosterPreviewComponent posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} />
                 <div className="info">
                     <p>{movie.overview}</p>
                     <p><strong>Release Date:</strong> {movie.release_date}</p>
-                    <p><strong>Rating:</strong> <StarRating rating={Math.round(movie.vote_average)}/></p>
+                    <p><strong>Rating:</strong> <StarRating rating={Math.round(movie.vote_average)} /></p>
                     <div className="genre-buttons">
                         {movie.genres.map(genre => (
                             <button

@@ -42,6 +42,9 @@
 
 .movie-details .info {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .movie-details .info h3 {
@@ -50,6 +53,7 @@
 
 .movie-details .info p {
     margin: 5px 0;
+    text-align: left;
 }
 
 .genre-buttons {

@@ -2,7 +2,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {RootState} from "../../redux/store/store";
 import {selectIsDarkTheme, toggleTheme} from "../../redux/slices/themeSlice";
-// import './ThemeSwitcher.css';
 import './ThemeSwitcher.css'
 
 const ThemeSwitcher: React.FC = () => {
