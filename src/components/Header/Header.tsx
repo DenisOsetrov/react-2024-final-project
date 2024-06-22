@@ -64,11 +64,12 @@ const Header: React.FC = () => {
                         <Link to="/genre/37">Western</Link>
                     </div>
                 </div>
-                <span onClick={toggleSearchBar} style={{ cursor: 'pointer' }}>
+
+                <span onClick={toggleSearchBar} style={{cursor: 'pointer'}}>
                     Search <i className="fas fa-search"></i>
                 </span>
-                <ThemeSwitcher />
-                <img src={userAvatar} alt="User Avatar" style={{ width: '30px', borderRadius: '50%' }} />
+                <ThemeSwitcher/>
+                <img src={userAvatar} alt="User Avatar" style={{width: '30px', borderRadius: '50%'}}/>
             </nav>
             {showSearch && <SearchBar/>}
         </header>
