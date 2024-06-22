@@ -1,22 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {IGenre} from "../../models/genres/IGenre";
+// import
 
-interface Genre {
-    id: number;
-    name: string;
+
+interface IProps {
+    genres: IGenre[];
 }
 
-interface GenresListProps {
-    genres: Genre[];
-}
-
-const GenresListComponent: React.FC<GenresListProps> = ({ genres }) => {
+const GenresListComponent: React.FC<IProps> = ({ genres }) => {
     return (
         <div>
             <h3>Genres:</h3>
             <ul>
                 {genres.map(genre => (
-                    <li key={genre.id}>
+                    <li key={genre.id} >
                         <Link to={`/genre/${genre.id}`}>{genre.name}</Link>
                     </li>
                 ))}

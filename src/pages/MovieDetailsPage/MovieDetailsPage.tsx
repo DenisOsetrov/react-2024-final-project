@@ -38,9 +38,8 @@ const MovieDetailsPage: React.FC = () => {
             <PosterPreviewComponent posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} />
             <p>{movie.overview}</p>
             <p>Release Date: {movie.release_date}</p>
-            <div>Rating: <StarRating rating={Math.round(movie.vote_average / 2)} /></div>
+            <div>Rating: <StarRating rating={Math.round(movie.vote_average)} /></div>
             <div>
-                <h3>Genres:</h3>
                 <GenresListComponent genres={movie.genres} />
             </div>
         </div>
