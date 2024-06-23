@@ -1,5 +1,6 @@
 import React from 'react';
 import MoviePoster from '../MoviePoster/MoviePoster';
+import './MoviesListCard.css'
 
 interface IProps {
     movie: {
