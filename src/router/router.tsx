@@ -2,7 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import MoviesPage from "../pages/MoviesPage/MoviesPage";
 import MainLayout from "../layouts/MainLayout";
 import GenresPage from "../pages/GenresPage/GenresPage";
-import GenreDetailsPage from "../pages/GenreDetailsPage/GenreDetailsPage";
+import MoviesByGenrePage from "../pages/MoviesByGenrePage/MoviesByGenrePage";
 import MovieDetailsPage from "../pages/MovieDetailsPage/MovieDetailsPage";
 import SearchResults from "../components/SearchResults/SearchResults";
 
@@ -25,7 +25,7 @@ const router = createBrowserRouter([
             },
             {
                 path: '/genre/:id',
-                element: <GenreDetailsPage />,
+                element: <MoviesByGenrePage />,
             },
             {
                 path: '/movie/:id',

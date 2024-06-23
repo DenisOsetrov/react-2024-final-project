@@ -1,17 +1,23 @@
-import React, {FC} from 'react';
-import { IMovie } from "../../models/movies/IMovie";
-import MoviePoster from "../MoviePoster/MoviePoster";
-
+import React from 'react';
+import MoviePoster from '../MoviePoster/MoviePoster';
 
 interface IProps {
-    movie: IMovie;
+    movie: {
+        poster_path: string;
+        title: string;
+        release_date: string;
+    };
 }
 
-const MoviesListCard: FC<IProps> = ({ movie }) => {
-
+const MoviesListCard: React.FC<IProps> = ({ movie }) => {
     return (
         <div className="movie-card">
-            <MoviePoster posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} size="small" />
+            <MoviePoster
+                posterPath={movie.poster_path}
+                title={movie.title}
+                releaseDate={movie.release_date}
+                size="small"
+            />
             <h3>{movie.title}</h3>
         </div>
     );
