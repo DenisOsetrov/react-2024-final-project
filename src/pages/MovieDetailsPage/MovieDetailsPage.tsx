@@ -3,9 +3,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../redux/store/store';
 import { fetchMovieById, selectMovieDetails } from '../../redux/slices/moviesSlice';
-import PosterPreviewComponent from '../../components/PosterPreviewComponent/PosterPreviewComponent';
+// import PosterPreviewComponent from '../../components/PosterPreviewComponent/PosterPreviewComponent';
 import StarRating from '../../components/StarRating/StarRating';
 import './MovieDetailsPage.css';
+import MoviePoster from "../../components/MoviePoster/MoviePoster";
 
 const MovieDetailsPage: React.FC = () => {
     const { id } = useParams<{ id: string }>();
@@ -29,10 +30,10 @@ const MovieDetailsPage: React.FC = () => {
 
     return (
         <div className="movie-card">
-            <button className="back-button" onClick={() => navigate(-1)}>Back</button>
+            <button onClick={() => navigate(-1)}>Back</button>
             <h2>{movie.title}</h2>
             <div className="movie-details">
-                <PosterPreviewComponent posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} />
+                <MoviePoster posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} />
                 <div className="info">
                     <p>{movie.overview}</p>
                     <p><strong>Release Date:</strong> {movie.release_date}</p>

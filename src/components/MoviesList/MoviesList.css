@@ -12,5 +12,5 @@
     text-decoration: none;
     color: inherit;
     display: flex;
-    justify-content: center; /* Центруємо картки всередині контейнера */
+    justify-content: center;
 }

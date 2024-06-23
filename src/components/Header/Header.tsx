@@ -6,27 +6,30 @@ import SearchBar from '../SearchBar/SearchBar';
 import './Header.css';
 
 const Header: React.FC = () => {
-    const [showSearch, setShowSearch] = useState(false);
-    const navigate = useNavigate();
-    const location = useLocation();
+    const [showSearch, setShowSearch] = useState(false); // Стан для відображення/приховування пошукової панелі
+    const navigate = useNavigate(); // Хук для навігації
+    const location = useLocation(); // Хук для отримання поточного шляху
 
     useEffect(() => {
-        setShowSearch(false);
+        setShowSearch(false); // Сховати пошукову панель при зміні шляху
     }, [location]);
 
-    const toggleSearchBar = () => {
-        setShowSearch(prevState => !prevState);
-    };
-
+    // Функція для відкриття сторінки з жанрами
     const handleGenresClick = () => {
         navigate('/genres');
+    };
+
+    // Функція для зміни стану відображення пошукової панелі
+    const toggleSearchBar = () => {
+        setShowSearch(prevState => !prevState);
     };
 
     return (
         <header>
             <nav>
-                <Link to="/">Movies</Link>
+                <Link to="/">Movies</Link> {/* Посилання на головну сторінку */}
                 <div className="dropdown">
+                    {/* Елемент з випадаючим меню жанрів */}
                     <span
                         className="dropdown-toggle"
                         onClick={handleGenresClick}
@@ -40,6 +43,7 @@ const Header: React.FC = () => {
                         onMouseEnter={(e) => e.currentTarget.classList.add('show')}
                         onMouseLeave={(e) => e.currentTarget.classList.remove('show')}
                     >
+                        {/* Посилання на різні жанри */}
                         <Link to="/genre/28">Action</Link>
                         <Link to="/genre/12">Adventure</Link>
                         <Link to="/genre/16">Animation</Link>
@@ -64,10 +68,10 @@ const Header: React.FC = () => {
                 <span onClick={toggleSearchBar}>
                     Search <i className="fas fa-search"></i>
                 </span>
-                <ThemeSwitcher />
-                <img src={userAvatar} alt="User Avatar" />
+                <ThemeSwitcher /> {/* Компонент перемикача тем */}
+                <img src={userAvatar} alt="User Avatar" /> {/* Зображення аватара користувача */}
             </nav>
-            {showSearch && <SearchBar />}
+            {showSearch && <SearchBar />} {/* Відображення пошукової панелі при showSearch === true */}
         </header>
     );
 };

@@ -9,6 +9,7 @@ interface Props {
 }
 
 const MoviesList: React.FC<Props> = ({ movies }) => {
+
     // Перевірка на пустий список фільмів
     if (!movies || movies.length === 0) {
         return <div>No movies found.</div>;
@@ -17,9 +18,12 @@ const MoviesList: React.FC<Props> = ({ movies }) => {
     return (
         <div className="movies-container">
             {movies.map((movie: IMovie) => (
+
+                // Посилання на деталі фільму за допомогою React Router
                 <Link to={`/movie/${movie.id}`} key={movie.id} className="movie-card-link">
-                    <MoviesListCard movie={movie} />
+                    <MoviesListCard movie={movie} /> {/* Картка фільму, яка передається як проп */}
                 </Link>
+
             ))}
         </div>
     );
