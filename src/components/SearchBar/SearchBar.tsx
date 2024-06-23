@@ -5,6 +5,7 @@ import { AppDispatch } from '../../redux/store/store';
 import { fetchMoviesByQuery } from '../../redux/slices/searchSlice';
 import './SearchBar.css';
 
+
 const SearchBar: React.FC = () => {
     const [query, setQuery] = useState('');
     const dispatch: AppDispatch = useDispatch();
