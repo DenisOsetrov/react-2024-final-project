@@ -30,7 +30,7 @@ const MovieDetailsPage: React.FC = () => {
 
     return (
         <div className="movie-card">
-            <button onClick={() => navigate(-1)}>Back</button>
+            <button className="back-button" onClick={() => navigate(-1)}>Back</button>
             <h2>{movie.title}</h2>
             <div className="movie-details">
                 <MoviePoster posterPath={movie.poster_path} title={movie.title} releaseDate={movie.release_date} />
