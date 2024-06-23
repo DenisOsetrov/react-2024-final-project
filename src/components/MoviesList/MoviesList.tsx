@@ -1,7 +1,8 @@
 import React from 'react';
 import MoviesListCard from "../MoviesListCard/MoviesListCard";
-import {IMovie} from "../../models/movies/IMovie";
+import { IMovie } from "../../models/movies/IMovie";
 import './MoviesList.css';
+import { Link } from "react-router-dom";
 
 interface Props {
     movies: IMovie[];
@@ -16,7 +17,9 @@ const MoviesList: React.FC<Props> = ({ movies }) => {
     return (
         <div className="movies-container">
             {movies.map((movie: IMovie) => (
-                <MoviesListCard key={movie.id} movie={movie} />
+                <Link to={`/movie/${movie.id}`} key={movie.id} className="movie-card-link">
+                    <MoviesListCard movie={movie} />
+                </Link>
             ))}
         </div>
     );

@@ -4,7 +4,6 @@
     gap: 20px;
     padding: 20px;
     justify-content: space-evenly;
-
     color: var(--font-color);
 }
 
@@ -16,11 +15,11 @@
     border-radius: 8px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none; /* Прибираємо підкреслення тексту */
+    color: var(--font-color); /* Колір тексту */
 }
 
-.genre-card a {
-    text-decoration: none;
-    color: var(--font-color);
+.genre-card span {
     font-weight: bold;
 }
 
@@ -29,6 +28,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-.genre-card:hover a {
+.genre-card:hover span {
     color: var(--color-accent);
 }

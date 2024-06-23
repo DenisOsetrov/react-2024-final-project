@@ -27,9 +27,3 @@ body {
     --header-background: #3c3f41;
     --header-color: #ffffff;
 }
-
-.movies-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-}
