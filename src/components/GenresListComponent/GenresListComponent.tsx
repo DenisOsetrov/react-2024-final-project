@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {IGenre} from "../../models/genres/IGenre";
-// import
 
 
 interface IProps {

@@ -7,7 +7,6 @@ interface IProps {
     genres: IGenre[];
 }
 
-
 const GenreList: React.FC<IProps> = ({genres}) => {
     return (
         <div className="genre-list">

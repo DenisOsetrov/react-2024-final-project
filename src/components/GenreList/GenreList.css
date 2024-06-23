@@ -8,15 +8,15 @@
 }
 
 .genre-card {
-    flex: 1 1 calc(20% - 20px); /* П'ять карток в рядку, за винятком відступів */
+    flex: 1 1 calc(20% - 20px);
     box-sizing: border-box;
     background-color: var(--header-background);
     padding: 10px;
     border-radius: 8px;
     text-align: center;
     transition: transform 0.3s, box-shadow 0.3s;
-    text-decoration: none; /* Прибираємо підкреслення тексту */
-    color: var(--font-color); /* Колір тексту */
+    text-decoration: none;
+    color: var(--font-color);
 }
 
 .genre-card span {
