@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
-import {AppDispatch, RootState} from "../redux/store/store";
+import {AppDispatch, RootState} from "../../redux/store/store";
 import {useDispatch, useSelector} from "react-redux";
-import {fetchGenres, selectGenres} from "../redux/slices/genresSlice";
-import GenreList from "../components/GenreList/GenreList";
-import '../../src/styles/moviesGenresPageName.css';
+import {fetchGenres, selectGenres} from "../../redux/slices/genresSlice";
+import GenreList from "../../components/GenreList/GenreList";
+import '../../styles/moviesGenresPageName.css';
 
 const GenresPage = () => {
 
@@ -23,3 +23,4 @@ const GenresPage = () => {
 };
 
 export default GenresPage;
+
